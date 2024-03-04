@@ -1,0 +1,29 @@
+<div class="row gy-3">
+  <nav aria-label="..." class="my-4 w-100 d-flex justify-content-center">
+    <ul class="pagination">
+      <li
+        class="page-item cursor-pointer"
+        (click)="onPageClick(currentPage - 1)"
+      >
+        <span class="page-link">&laquo;</span>
+      </li>
+
+      <li
+        *ngFor="let pageNumber of getPageNumbers()"
+        class="page-item cursor-pointer"
+        [class.active]="currentPage === pageNumber"
+        aria-current="page"
+      >
+        <span class="page-link" (click)="onPageClick(pageNumber)">{{
+          pageNumber
+        }}</span>
+      </li>
+      <li
+        class="page-item cursor-pointer"
+        (click)="onPageClick(currentPage + 1)"
+      >
+        <a class="page-link">&raquo;</a>
+      </li>
+    </ul>
+  </nav>
+</div>

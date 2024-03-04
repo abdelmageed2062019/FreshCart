@@ -1,0 +1,77 @@
+<div>
+  <form
+    [formGroup]="shippingAddress"
+    (ngSubmit)="submitShipping(shippingAddress)"
+  >
+    <div class="my-3">
+      <label>Details:</label>
+      <input formControlName="details" type="text" class="form-control" />
+      <div
+        class="alert alert-danger mt-1 p-2"
+        *ngIf="
+          shippingAddress.get('details')?.touched &&
+          shippingAddress.get('details')?.errors
+        "
+      >
+        <p
+          class="m-0 p-1"
+          *ngIf="shippingAddress.get('details')?.errors?.['required']"
+        >
+          Details is Required
+        </p>
+      </div>
+    </div>
+
+    <div class="my-3">
+      <label>Phone:</label>
+      <input formControlName="phone" type="tel" class="form-control" />
+
+      <div
+        class="alert alert-danger mt-1 p-2"
+        *ngIf="
+          shippingAddress.get('phone')?.touched &&
+          shippingAddress.get('phone')?.errors
+        "
+      >
+        <p
+          class="m-0 p-1"
+          *ngIf="shippingAddress.get('phone')?.errors?.['required']"
+        >
+          Phone is Required
+        </p>
+        <p
+          class="m-0 p-1"
+          *ngIf="shippingAddress.get('phone')?.errors?.['pattern']"
+        >
+          Enter valid Phone Number
+        </p>
+      </div>
+    </div>
+
+    <div class="my-3">
+      <label>City: </label>
+      <input formControlName="city" type="text" class="form-control" />
+
+      <div
+        class="alert alert-danger mt-1 p-2"
+        *ngIf="
+          shippingAddress.get('city')?.touched &&
+          shippingAddress.get('city')?.errors
+        "
+      >
+        <p
+          class="m-0 p-1"
+          *ngIf="shippingAddress.get('city')?.errors?.['required']"
+        >
+          City is Required
+        </p>
+      </div>
+    </div>
+    <button
+      class="bg-main text-white p-2 rounded border-0 mt-3 d-block ms-auto"
+      [disabled]="shippingAddress.invalid"
+    >
+      Check Out
+    </button>
+  </form>
+</div>

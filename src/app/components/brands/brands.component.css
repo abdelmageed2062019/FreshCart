@@ -1,0 +1,12 @@
+.loader {
+  background-image: url("../../../assets/images/app-store.svg");
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

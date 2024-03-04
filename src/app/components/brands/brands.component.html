@@ -1,0 +1,49 @@
+<div
+  class="loadingScreen position-fixed top-0 bottom-0 start-0 end-0 bg-white d-flex justify-content-center align-items-center"
+  *ngIf="isLoading"
+>
+  <img src="assets/images/freshcart-logo.svg" alt="loading" />
+</div>
+
+<div class="row gy-3">
+  <div
+    class="col-md-4 cursor-pointer"
+    *ngFor="let b of brandList; let i = index"
+    data-bs-toggle="modal"
+    [attr.data-bs-target]="'#exampleModal' + i"
+  >
+    <div class="product p-3">
+      <img [src]="b.image" class="w-100" alt="" />
+      <span class="text-main font-sm">{{ b.name | uppercase }}</span>
+      <h3 class="h6 py-2">{{ b.slug.split(" ").splice(0, 2).join(" ") }}</h3>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      [id]="'exampleModal' + i"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              {{ b.name }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <img [src]="b.image" class="w-100" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

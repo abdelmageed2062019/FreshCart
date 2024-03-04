@@ -1,0 +1,12 @@
+.table-wishlist tr td {
+  padding: 25px 0;
+  vertical-align: middle;
+}
+
+.table-wishlist tr td .img-product {
+  width: 72px;
+  float: left;
+  margin-left: 8px;
+  margin-right: 31px;
+  line-height: 63px;
+}

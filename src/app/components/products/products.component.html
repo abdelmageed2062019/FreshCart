@@ -1,0 +1,48 @@
+<div
+  class="loadingScreen position-fixed top-0 bottom-0 start-0 end-0 bg-white d-flex justify-content-center align-items-center"
+  *ngIf="isLoading"
+>
+  <img src="assets/images/freshcart-logo.svg" alt="loading" />
+</div>
+<div class="row">
+  <div class="col-md-4" *ngFor="let product of productList">
+    <div class="product cursor-pointer p-3">
+      <div [routerLink]="['/porductdetails', product._id]">
+        <img [src]="product.imageCover" class="w-100" alt="" />
+        <span class="text-main font-sm">{{
+          product.category.name | by | uppercase
+        }}</span>
+
+        <h3 class="h6 py-2">
+          {{ product.title.split(" ").splice(0, 2).join(" ") }}
+        </h3>
+        <div class="d-flex justify-content-between">
+          <span>{{ product.price }}EGP</span>
+          <span
+            ><i class="fa fa-star rating-color"></i>
+            {{ product.ratingsAverage }}</span
+          >
+        </div>
+      </div>
+      <div class="add-part">
+        <span (click)="toggleWithListBtn(product._id)" class="cursor-pointer"
+          ><i
+            class="fa fa-heart px-4"
+            [ngClass]="{ 'wishlist-added': isProductInWishlist(product.id) }"
+          ></i
+        ></span>
+        <button class="add-btn" (click)="addProductToCart(product._id)">
+          +Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <app-pagination
+    *ngIf="!isLoading"
+    [currentPage]="currentPage"
+    [numberOfPages]="numberOfPages"
+    (pageChange)="onPageChange($event)"
+  >
+  </app-pagination>
+</div>

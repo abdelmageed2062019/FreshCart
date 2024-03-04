@@ -1,0 +1,59 @@
+<div
+  class="loadingScreen position-fixed top-0 bottom-0 start-0 end-0 bg-white d-flex justify-content-center align-items-center"
+  *ngIf="isLoading"
+>
+  <img src="assets/images/freshcart-logo.svg" alt="loading" />
+</div>
+
+<div class="row gy-3">
+  <div
+    class="col-md-4 cursor-pointer"
+    *ngFor="let c of categoryList; let i = index"
+    data-bs-toggle="modal"
+    [attr.data-bs-target]="'#exampleModal' + i"
+    (show.bs.modal)="openModal(c._id)"
+  >
+    <div class="product p-3">
+      <img [src]="c.image" class="w-100" height="300" alt="" />
+      <span class="text-main font-sm">{{ c.name | uppercase }}</span>
+
+      <h3 class="h6 py-2">
+        {{ c.slug.split(" ").splice(0, 2).join(" ") }}
+      </h3>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      [id]="'exampleModal' + i"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-success" id="exampleModalLabel">
+              {{ c.name }} Sub Categories
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center">
+            <span *ngIf="isSubLoading" class="loader"></span>
+            <span *ngIf="subCateList.length === 0 && isSubLoading === false"
+              >No Sub Categoreis</span
+            >
+            <ul *ngFor="let sub of subCateList">
+              <li>{{ sub.name }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

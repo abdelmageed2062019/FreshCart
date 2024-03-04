@@ -1,0 +1,37 @@
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #0aad0a;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.wishlist-added {
+  color: red;
+}
+
+.add-product {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-product button {
+  background-color: #0aad0a;
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}

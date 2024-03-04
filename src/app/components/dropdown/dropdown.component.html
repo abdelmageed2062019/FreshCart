@@ -1,0 +1,26 @@
+<div class="dropdown">
+  <a
+    class="btn btn-outline-success dropdown-toggle"
+    href="#"
+    role="button"
+    id="dropdownMenuLink"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <i class="fa-solid fa-user p-2"></i> Hi, {{ userName }}
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li>
+      <a class="dropdown-item" [routerLink]="['/updateData']"
+        >Update Profile
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" [routerLink]="['/updatePassword']"
+        >Update Password</a
+      >
+    </li>
+    <li><a class="dropdown-item" [routerLink]="['/orders']">Orders</a></li>
+  </ul>
+</div>

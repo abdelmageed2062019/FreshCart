@@ -1,0 +1,75 @@
+<div
+  class="loadingScreen position-fixed top-0 bottom-0 start-0 end-0 bg-white d-flex justify-content-center align-items-center"
+  *ngIf="isLoading"
+>
+  <img src="assets/images/freshcart-logo.svg" alt="loading" />
+</div>
+
+<div class="d-flex justify-content-between mt-5 mb-3">
+  <p class="text-main">
+    <span class="fw-bolder"> Number of cart items:</span>
+    {{ numberOfCartItems }}
+  </p>
+  <p class="text-main">
+    <span class="fw-bolder">Total price:</span> {{ totalPrice }}
+  </p>
+</div>
+
+<button class="btn btn-outline-danger d-block ms-auto" (click)="clearCart()">
+  Clear Card
+</button>
+
+<div
+  *ngIf="emptyCart"
+  class="mt-3 d-flex align-items-center justify-content-center"
+>
+  <img src="../../../assets/images/empty-cart.jpg" width="500" height="500" />
+</div>
+<div
+  *ngFor="let productItem of productList"
+  class="row mt-3 shadow-sm p-2 mb-3"
+>
+  <div class="col-md-1">
+    <img [src]="productItem.product.imageCover" class="w-100" alt="" />
+  </div>
+
+  <div class="col-md-11 d-flex justify-content-between">
+    <div>
+      <h3>{{ productItem.product.title }}</h3>
+      <p>{{ productItem.price }}</p>
+      <span
+        class="text-danger cursor-pointer"
+        (click)="removeProduct(productItem.product._id)"
+        >Remove Product <i class="fa fa-trash"></i
+      ></span>
+    </div>
+
+    <div>
+      <button
+        class="bg-main text-white border-0 rounded-1"
+        (click)="
+          updateProductCart(productItem.product._id, productItem.count + 1)
+        "
+      >
+        <i class="fa-solid fa-caret-up"></i>
+      </button>
+      <span class="px-3">{{ productItem.count }}</span>
+      <button
+        class="bg-danger text-white border-0 rounded-1"
+        (click)="
+          updateProductCart(productItem.product._id, productItem.count - 1)
+        "
+      >
+        <i class="fa-solid fa-caret-down"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<button
+  class="bg-main text-white btn-secondary rounded border-0 p-2 mt-3 d-block ms-auto"
+  [routerLink]="['/shippingAddress', cartId]"
+  [disabled]="emptyCart"
+>
+  Pay Now
+</button>
