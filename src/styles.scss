@@ -11,6 +11,7 @@ $rating-color: #ffc908;
 
 body {
   font-family: $font-family;
+  background-image: url("./assets/images/light-patten.svg");
 }
 
 .rating-color {
@@ -54,7 +55,7 @@ a:hover {
       background-color: $main-color;
       border: 0;
       color: $light-color;
-      padding: 10px;
+      padding: 3px 6px;
       border-radius: 5px;
     }
   }
@@ -188,6 +189,12 @@ button:disabled {
   background: #7e7e7e;
 }
 
+@media (max-width: 990px) {
+  .product .add-part {
+    display: block !important;
+  }
+}
+
 @media (max-width: 576px) {
   .search_input {
     width: 100%;
@@ -216,4 +223,8 @@ button:disabled {
   .search_input:focus {
     width: 450px;
   }
+}
+
+.empty {
+  max-width: 380px;
 }
