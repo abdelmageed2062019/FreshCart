@@ -41,7 +41,14 @@ export class ProductDetailsComponent implements OnInit {
     this._ActivatedRoute.params.subscribe(param => {
       this.productId = param['id']
       console.log(this.productId)
+
+      console.log(this.isProductInWishlist(param['id']));
+
+
     })
+
+
+
     this._ProductsServices.getProductDetails(this.productId).subscribe({
       next: response => {
         this.isLoading = false
@@ -90,45 +97,8 @@ export class ProductDetailsComponent implements OnInit {
     })
   }
 
-  isProductInWishlist(productId: string): boolean {
-    return this.wishList.some(item => item._id === productId);
+  isProductInWishlist(sId: string): boolean {
+    return this.wishList.some(item => item._id === sId);
   }
 
-  toggleWithListBtn(productId: string) {
-    this.isLoading = true
-
-    if (this.isProductInWishlist(productId)) {
-      this._WishlistService.removeProductFromWishList(productId).subscribe({
-        next: response => {
-          this.getAllWishlistItem()
-          console.log(response);
-          this._WishlistService.numOfWishListItems.next(response.data.length)
-          this.getAllWishlistItem()
-          this.toastr.error(response.message);
-          this.isLoading = false
-        }, error: err => {
-          console.log(err);
-          this.isLoading = false
-
-        }
-      })
-    } else {
-      this._WishlistService.addProductToWishList(productId).subscribe({
-
-        next: response => {
-          this._WishlistService.numOfWishListItems.next(response.data.length)
-          this.toastr.success(response.message);
-          this.getAllWishlistItem()
-
-          this.isLoading = false
-
-
-        }, error: err => {
-          console.log(err);
-          this.isLoading = false
-
-        }
-      })
-    }
-  }
 }

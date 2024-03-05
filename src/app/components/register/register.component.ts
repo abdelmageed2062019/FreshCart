@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit {
 
           console.log(response);
           if (response.message === 'success') {
-            //navigate to login 
             this._Router.navigate(['/login']);
             this.isLoading = false
           }

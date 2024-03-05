@@ -5,6 +5,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { Wishlist } from 'src/app/interfaces/product'
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -22,9 +23,11 @@ export class HomeComponent implements OnInit {
   wishList: Wishlist[] = []
 
 
-  constructor(private _PorductService: ProductService, private _WishlistService: WishlistService, private toastr: ToastrService, private _CartService: CartService) { }
+  constructor(private _PorductService: ProductService, private _AuthService: AuthService, private _WishlistService: WishlistService, private toastr: ToastrService, private _CartService: CartService) { }
 
   ngOnInit(): void {
+    this._AuthService.decodeUserToken();
+    console.log(localStorage.getItem("userToken"));
     this.getAllProduct()
     this.getAllWishlistItem()
   }
@@ -83,6 +86,7 @@ export class HomeComponent implements OnInit {
         console.log(err);
       }
     })
+
   }
 
   isProductInWishlist(productId: string): boolean {

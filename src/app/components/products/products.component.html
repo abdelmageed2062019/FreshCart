@@ -1,9 +1,10 @@
 <div
-  class="loadingScreen position-fixed top-0 bottom-0 start-0 end-0 bg-white d-flex justify-content-center align-items-center"
+  class="loadingScreen position-fixed top-0 bottom-0 start-0 end-0 bg-white d-flex justify-content-center align-items-center z-3"
   *ngIf="isLoading"
 >
   <img src="assets/images/freshcart-logo.svg" alt="loading" />
 </div>
+
 <div class="row">
   <div class="col-md-4" *ngFor="let product of productList">
     <div class="product cursor-pointer p-3">

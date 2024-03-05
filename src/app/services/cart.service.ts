@@ -15,11 +15,16 @@ export class CartService {
 
   constructor(private _HttpClient: HttpClient) { }
 
+  private updateCartItemsCount(count: number) {
+    this.numOfCartItems.next(count);
+  }
 
   addProductToCart(productId: string): Observable<any> {
     return this._HttpClient.post(`${this.baseUrl}/api/v1/cart`,
       { productId: productId },
       { headers: this.headers }
+    ).pipe(
+      tap(() => this.updateCartItemsCount(this.numOfCartItems.value + 1))
     )
   }
 
@@ -32,6 +37,8 @@ export class CartService {
   removeProductFromCart(productId: string): Observable<any> {
     return this._HttpClient.delete(`${this.baseUrl}/api/v1/cart/${productId}`,
       { headers: this.headers }
+    ).pipe(
+      tap(() => this.updateCartItemsCount(this.numOfCartItems.value - 1))
     )
   }
 
@@ -45,6 +52,8 @@ export class CartService {
   clearCart() {
     return this._HttpClient.delete(`${this.baseUrl}/api/v1/cart`,
       { headers: this.headers }
+    ).pipe(
+      tap(() => this.updateCartItemsCount(0))
     )
   }
 

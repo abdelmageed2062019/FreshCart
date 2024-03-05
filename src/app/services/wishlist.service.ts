@@ -10,16 +10,18 @@ export class WishlistService {
   headers = {
     token: localStorage.getItem("userToken") || ""
   }
-
   numOfWishListItems: BehaviorSubject<number> = new BehaviorSubject(0)
 
-  constructor(private _HttpClient: HttpClient) { }
+  constructor(private _HttpClient: HttpClient) {
+  }
 
   getLoggedWishList(): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}/api/v1/wishlist`,
       { headers: this.headers }
     )
   }
+
+
 
 
   addProductToWishList(productId: string): Observable<any> {

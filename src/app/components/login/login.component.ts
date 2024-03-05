@@ -33,12 +33,15 @@ export class LoginComponent implements OnInit {
 
     if (dataForm.valid) {
       this._AuthService.signin(dataForm.value).subscribe({
+
         next: (response) => {
+
           console.log(response);
           if (response.message === 'success') {
-            //navigate to login
-            localStorage.setItem('userToken', response.token);
             this._AuthService.decodeUserToken();
+
+            localStorage.setItem('userToken', response.token);
+
             this._Router.navigate(['/home']);
             this.isLoading = false;
           }

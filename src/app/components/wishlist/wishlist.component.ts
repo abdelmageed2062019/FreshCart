@@ -13,6 +13,8 @@ import { Wishlist } from 'src/app/interfaces/product'
 export class WishlistComponent implements OnInit {
 
   wishList: Wishlist[] = []
+  isLoading: boolean = false
+
   constructor(private _WishlistService: WishlistService, private toastr: ToastrService, private _CartService: CartService) { }
 
 
@@ -21,8 +23,11 @@ export class WishlistComponent implements OnInit {
   }
 
   getAllWishlistItems() {
+    this.isLoading = true;
+
     this._WishlistService.getLoggedWishList().subscribe({
       next: response => {
+        this.isLoading = false;
 
         this.wishList = response.data
 
@@ -30,21 +35,27 @@ export class WishlistComponent implements OnInit {
       },
       error: err => {
         console.log(err);
+        this.isLoading = false;
 
       }
     })
   }
 
   removeItemFromWishlist(productId: string) {
+    this.isLoading = true;
+
     this._WishlistService.removeProductFromWishList(productId).subscribe({
       next: response => {
+        this.isLoading = false;
+
+        this._WishlistService.numOfWishListItems.next(response.data.length)
         this.getAllWishlistItems()
         this.toastr.error(response.message);
-
         console.log(response);
       },
       error: err => {
         console.log(err);
+        this.isLoading = false;
 
       }
 
@@ -52,14 +63,19 @@ export class WishlistComponent implements OnInit {
   }
 
   addWishlistProductToCart(productId: string) {
+    this.isLoading = true;
+
     this._CartService.addProductToCart(productId).subscribe({
       next: response => {
-        this.toastr.success(response.message);
+        this.isLoading = false;
 
+        this._WishlistService.numOfWishListItems.next(response.data.length)
+        this.toastr.success(response.message);
         console.log(response);
       },
       error: err => {
         console.log(err);
+        this.isLoading = false;
 
       }
     })

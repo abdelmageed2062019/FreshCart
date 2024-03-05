@@ -99,13 +99,11 @@ export class ProductsComponent implements OnInit {
       this._WishlistService.removeProductFromWishList(productId).subscribe({
         next: response => {
           this.getAllWishlistItem()
+          console.log(response);
           this._WishlistService.numOfWishListItems.next(response.data.length)
-
+          this.getAllWishlistItem()
           this.toastr.error(response.message);
           this.isLoading = false
-
-          console.log(response);
-
         }, error: err => {
           console.log(err);
           this.isLoading = false
@@ -114,14 +112,19 @@ export class ProductsComponent implements OnInit {
       })
     } else {
       this._WishlistService.addProductToWishList(productId).subscribe({
+
         next: response => {
-          this.getAllWishlistItem()
+          this._WishlistService.numOfWishListItems.next(response.data.length)
           this.toastr.success(response.message);
-          console.log(response);
+          this.getAllWishlistItem()
+
           this.isLoading = false
+
+
         }, error: err => {
           console.log(err);
           this.isLoading = false
+
         }
       })
     }
