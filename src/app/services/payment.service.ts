@@ -13,7 +13,7 @@ export class PaymentService {
   constructor(private _HttpClient: HttpClient) { }
 
   checkOut(cartId: string, shippingAddress: any): Observable<any> {
-    return this._HttpClient.post(`${this.baseUrl}/api/v1/orders/checkout-session/${cartId}?url=http://localhost:4200`,
+    return this._HttpClient.post(`${this.baseUrl}/api/v1/orders/checkout-session/${cartId}?url=https://fresh-cart-sooty.vercel.app/`,
       { shippingAddress: shippingAddress },
       { headers: this.headers }
     )
